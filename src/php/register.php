@@ -1,34 +1,19 @@
 <?php
 	/*
-		Requests a new sms code from the server.
+		Requests a new password from the server.
 		$phone must be the phone number without country code or leading zeros
 	*/
-	var_dump(request_code("XX","XXXXXXXXXX","voice","XXXXXXXXXXXXXXX","xx", "XX"));
-	function request_code($cc, $phone, $method='sms', $id="", $language=null, $countrycode=null)
+	var_dump(request_pwd("XX","XXXXXXXXXX","XXXXXX"));
+	function request_pwd($cc, $phone, $code)
 	{
 		// User agent - WARNING! Do not change unless you also change the TokenPrefix!
 		$UserAgent = "WhatsApp/2.3.53 S40Version/14.26 Device/Nokia302";
-	
-		// Build token
-		$TokenPrefix = 'PdA2DJyKoUrwLw1Bg6EIhzh502dF9noR9uFCllGk1354754753509';
-		$Token = $TokenPrefix . $phone;
-		$Token = md5($Token);
-		
-		// Set language and country code if not given
-		if($language == null)
-		{
-			$language = 'en';
-		}
-		if($countrycode == null)
-		{
-			$countrycode = 'US';
-		}
 		
 		// Create md5 hash of id (Note: If no id has been given, a hash needs to be created from an empty string
 		$id = md5($id);
 		
 		// Build url
-		$Url = "https://v.whatsapp.com/v2/code?cc=$cc&in=$phone&lc=$countrycode&lg=$language&mcc=000&mnc=000&method=$method&id=$id&token=$Token&c=cookie";
+		$Url = "https://v.whatsapp.com/v2/register?cc=$cc&in=$phone&code=558885&id=$id";
 		
 		// Initiate Curl
 		$ch = curl_init($Url);
